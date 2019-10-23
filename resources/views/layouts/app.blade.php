@@ -22,6 +22,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           apply the skin class to the body tag so the changes take effect. -->
     <link rel="stylesheet" href="{{ asset('bower_components/admin-lte/dist/css/skins/skin-blue.min.css') }}">
 
+    @yield('style')
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     {{--<!--[if lt IE 9]>--}}
@@ -52,57 +53,69 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
+<body class="@yield('body_class')">
+    @section('wrapper')
+    <div class="wrapper">
 
-    <!-- Main Header -->
-    @include('admin.layouts.header')
+        <!-- Main Header -->
+        @section('header')
+            @include('layouts.header')
+        @show
+        <!-- Left side column. contains the logo and sidebar -->
+        @section('left-sidebar')
+            @include('layouts.left-sidebar')
+        @show
+        <!-- Content Wrapper. Contains page content -->
 
-    <!-- Left side column. contains the logo and sidebar -->
-    @include('admin.layouts.left-sidebar')
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    Page Header
+                    <small>Optional description</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+                    <li class="active">Here</li>
+                </ol>
+            </section>
 
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>
-                Page Header
-                <small>Optional description</small>
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-                <li class="active">Here</li>
-            </ol>
-        </section>
+            <!-- Main content -->
+            <section class="content container-fluid">
 
-        <!-- Main content -->
-        <section class="content container-fluid">
+                @yield('content')
 
-            @yield('content')
+            </section>
+            <!-- /.content -->
+        </div>
 
-        </section>
-        <!-- /.content -->
+        <!-- /.content-wrapper -->
+
+        <!-- Main Footer -->
+        @section('footer')
+            @include('layouts.footer')
+        @show
+
+        <!-- Control Sidebar -->
+        @section('right-sidebar')
+            @include('layouts.right-sidebar')
+        @show
+        <!-- /.control-sidebar -->
+
     </div>
-    <!-- /.content-wrapper -->
-
-    <!-- Main Footer -->
-    @include('admin.layouts.footer')
-
-    <!-- Control Sidebar -->
-    @include('admin.layouts.right-sidebar')
-    <!-- /.control-sidebar -->
-
-</div>
+    @show
 <!-- ./wrapper -->
 
 <!-- REQUIRED JS SCRIPTS -->
 
-<!-- jQuery 3 -->
-<script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-<!-- AdminLTE App -->
-<script src="{{ asset('bower_components/admin-lte/dist/js/adminlte.min.js') }}"></script>
+    <!-- jQuery 3 -->
+    <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ asset('bower_components/admin-lte/dist/js/adminlte.min.js') }}"></script>
+
+    @yield('script')
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
